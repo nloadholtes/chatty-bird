@@ -17,6 +17,8 @@
   "I don't do a whole lot ... yet."
   [& args]
   (println "Hello, World!")
-  (println my-creds))
+  (println my-creds)
+  (println (System/getenv "CONSUMER_KEY")))
+
 
 
