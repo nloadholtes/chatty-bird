@@ -4,7 +4,8 @@
         [twitter.callbacks]
         [twitter.callbacks.handlers]
         [twitter.api.restful]
-        [clojure-csv.core])
+        [clojure-csv.core :as csv]
+        [clojure.string :as str])
   (:import [twitter.callbacks.protocols SyncSingleCallback]))
 
 
@@ -21,11 +22,17 @@
   (println "Hello, World!")
   (println my-creds)
   (println (System/getenv "CONSUMER_KEY"))
-  (read-csv "something-awesome.csv"))
+  (println (first (read-csv (first args))))
+
+ )
 
 
 (defn read-csv [filename]
   (println "Looking at " filename)
-  (println "args: " *command-line-args*))
+  (csv/parse-csv (slurp filename))
+
+)
+
+
 
 (defn random-select [data freq] ())
