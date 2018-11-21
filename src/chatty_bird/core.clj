@@ -27,8 +27,10 @@
   ;; Loop and sleep
   (while true
     ;; Select tweet
-    ;; Post tweet
-    (println "Posting:" (rand-nth tweets))
+    (def msg (rand-nth tweets))
+    (println "Posting:" msg " \n")
+    (statuses-update :oauth-creds my-creds
+                     :params {:status msg})
     ;; sleep for 6 hours plus some random number over 5 minutes
     (Thread/sleep (+ 21600000 (* (* (rand) 10) 300000)))
    )
