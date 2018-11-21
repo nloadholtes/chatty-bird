@@ -22,8 +22,16 @@
   (println "Hello, World!")
   (println my-creds)
   (println (System/getenv "CONSUMER_KEY"))
-  (println (first (read-csv (first args))))
+  (def tweets (read-csv (first args)))
 
+  ;; Loop and sleep
+  (while true
+    ;; Select tweet
+    ;; Post tweet
+    (println "Posting:" (rand-nth tweets))
+    ;; sleep for 6 hours plus some random number over 5 minutes
+    (Thread/sleep (+ 21600000 (* (* (rand) 10) 300000)))
+   )
  )
 
 
