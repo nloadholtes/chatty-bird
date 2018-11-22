@@ -28,7 +28,7 @@
   ;; Loop and sleep
   (while true
     ;; Select tweet
-    (def msg (rand-nth tweets))
+    (def msg (first (rand-nth tweets)))
     (println "Posting:" msg " \n")
     (statuses-update :oauth-creds my-creds
                      :params {:status msg})
