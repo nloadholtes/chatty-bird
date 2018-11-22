@@ -1,6 +1,6 @@
-(defproject chatty-bird "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+(defproject chatty-bird "1.0.0"
+  :description "Post to twitter automatically from a CSV file."
+  :url "https://giuthub.com/nloadholtes/chatty-bird"
   :license {:name "MIT License"
             :url "http://www.opensource.org/licenses/MIT"}
   :dependencies [[org.clojure/clojure "1.9.0"]

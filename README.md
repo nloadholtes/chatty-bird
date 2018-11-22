@@ -1,36 +1,23 @@
 # chatty-bird
 
-FIXME: description
+An app to post things to twitter automatically
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Clone this repo, and run `./run.sh <name-of-csv-containing-tweets>`
 
 ## Usage
 
-FIXME: explanation
+To make things easier on future me, this is running in a docker container.
 
-    $ java -jar chatty-bird-0.1.0-standalone.jar [args]
+It can also be run from the command line with `lein run` although lein
+gives me troubles with the environment vars.
 
-## Options
 
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
 
 ## License
 
 MIT 
 
-Copyright © 2018 FIXME
+Copyright © 2018 Nick Loadholtes
 
