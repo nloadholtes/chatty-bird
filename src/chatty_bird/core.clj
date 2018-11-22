@@ -10,19 +10,20 @@
 
 (require '[environ.core :refer [env]])
 
+
 (def my-creds (make-oauth-creds (env :consumer-key)
                                 (env :consumer-secret)
                                 (env :access-token)
                                 (env :access-token-secret)))
 
+
 (declare read-csv random-select)
 
+
 (defn -main
-  "I don't do a whole lot ... yet."
+  "Read a CSV and post a line from it to twitter every few hours"
   [& args]
-  (println "Hello, World!")
-  (println my-creds)
-  (println (System/getenv "CONSUMER_KEY"))
+  (println "Tweet tweet!")
   (def tweets (read-csv (str "/data/" (first args))))
 
   ;; Loop and sleep
@@ -43,9 +44,7 @@
 (defn read-csv [filename]
   (println "Looking at " filename)
   (csv/parse-csv (slurp filename))
-
 )
-
 
 
 (defn random-select [data freq] ())
