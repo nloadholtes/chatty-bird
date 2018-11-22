@@ -8,11 +8,12 @@
         [clojure.string :as str])
   (:import [twitter.callbacks.protocols SyncSingleCallback]))
 
+(require '[environ.core :refer [env]])
 
-(def my-creds (make-oauth-creds (System/getenv "CONSUMER_KEY")
-                                (System/getenv "CONSUMER_SECRET")
-                                (System/getenv "ACCESS_TOKEN")
-                                (System/getenv "ACCESS_TOKEN_SECRET")))
+(def my-creds (make-oauth-creds (env :consumer-key)
+                                (env :consumer-secret)
+                                (env :access-token)
+                                (env :access-token-secret)))
 
 (declare read-csv random-select)
 
