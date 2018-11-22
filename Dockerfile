@@ -1,5 +1,6 @@
 FROM clojure:latest
 RUN mkdir -p /usr/src/app
+RUN mkdir -p /data/
 WORKDIR /usr/src/app
 COPY project.clj /usr/src/app/
 RUN lein deps

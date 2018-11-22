@@ -23,7 +23,7 @@
   (println "Hello, World!")
   (println my-creds)
   (println (System/getenv "CONSUMER_KEY"))
-  (def tweets (read-csv (first args)))
+  (def tweets (read-csv (str "/data/" (first args))))
 
   ;; Loop and sleep
   (while true

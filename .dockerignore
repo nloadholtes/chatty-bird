@@ -1,0 +1,5 @@
+*.csv
+.git
+env.vars
+*.vars
+.lein-repl-history 
