@@ -5,7 +5,7 @@
         [twitter.callbacks.handlers]
         [twitter.api.restful]
         [clojure-csv.core :as csv]
-        [clojure.string :as str])
+        [clojure.string :only (join)])
   (:import [twitter.callbacks.protocols SyncSingleCallback]))
 
 (require '[environ.core :refer [env]])
@@ -24,7 +24,7 @@
   "Read a CSV and post a line from it to twitter every few hours"
   [& args]
   (println "Tweet tweet!")
-  (def tweets (read-csv (str "/data/" (first args))))
+  (def tweets (read-csv (join ["/data/" (first args)])))
 
   ;; Loop and sleep
   (while true
