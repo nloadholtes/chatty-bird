@@ -33,7 +33,9 @@
     (statuses-update :oauth-creds my-creds
                      :params {:status msg})
     ;; sleep for 6 hours plus some random number over 5 minutes
-    (Thread/sleep (+ 21600000 (* (* (rand) 10) 300000)))
+    (def wait-time (+ 21600000 (* (* (rand) 10) 300000)))
+    (println "Sleeping for " (/ (/ wait-time 1000) 60) " minutes")
+    (Thread/sleep wait-time)
    )
  )
 
