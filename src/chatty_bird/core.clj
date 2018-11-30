@@ -15,7 +15,9 @@
                                 (env :consumer-secret)
                                 (env :access-token)
                                 (env :access-token-secret)))
-
+;;(def huh (env :wait-time))
+;;(def wait-time (Integer/parseInt huh))
+(def base-wait-time 3600000)
 
 (declare read-csv random-select)
 
@@ -24,6 +26,7 @@
   "Read a CSV and post a line from it to twitter every few hours"
   [& args]
   (println "Tweet tweet!")
+  (println "Pausing for" base-wait-time)
   (def tweets (read-csv (join ["/data/" (first args)])))
 
   ;; Loop and sleep
@@ -34,7 +37,7 @@
     (statuses-update :oauth-creds my-creds
                      :params {:status msg})
     ;; sleep for 6 hours plus some random number over 5 minutes
-    (def wait-time (+ 21600000 (* (* (rand) 10) 300000)))
+    (def wait-time (+ base-wait-time (* (* (rand) 10) 300000)))
     (println "Sleeping for " (/ (/ wait-time 1000) 60) " minutes")
     (Thread/sleep wait-time)
    )
