@@ -15,8 +15,6 @@
                                 (env :consumer-secret)
                                 (env :access-token)
                                 (env :access-token-secret)))
-
-
 (declare read-csv random-select)
 
 
@@ -24,6 +22,9 @@
   "Read a CSV and post a line from it to twitter every few hours"
   [& args]
   (println "Tweet tweet!")
+  (def base-wait-time (Integer/parseInt (env :wait-time)))
+
+  (println "Pausing for" base-wait-time)
   (def tweets (read-csv (join ["/data/" (first args)])))
 
   ;; Loop and sleep
@@ -31,12 +32,18 @@
     ;; Select tweet
     (def msg (first (rand-nth tweets)))
     (println "Posting:" msg " \n")
-    (statuses-update :oauth-creds my-creds
-                     :params {:status msg})
-    ;; sleep for 6 hours plus some random number over 5 minutes
-    (def wait-time (+ 21600000 (* (* (rand) 10) 300000)))
-    (println "Sleeping for " (/ (/ wait-time 1000) 60) " minutes")
-    (Thread/sleep wait-time)
+    (try
+      (statuses-update :oauth-creds my-creds
+                       :params {:status msg})
+      ;; sleep for 6 hours plus some random number over 5 minutes
+      (def wait-time (+ base-wait-time (* (* (rand) 10) 300000)))
+      (println "Sleeping for " (/ (/ wait-time 1000) 60) " minutes")
+      (Thread/sleep wait-time)
+
+      (catch Exception excp
+        (println "   ****Exception seen:" (.getMessage excp))
+        )
+      )
    )
  )
 
