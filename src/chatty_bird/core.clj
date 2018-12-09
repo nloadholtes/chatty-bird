@@ -42,6 +42,7 @@
 
       (catch Exception excp
         (println "   ****Exception seen:" (.getMessage excp))
+        (Thread/sleep 90000)
         )
       )
    )
