@@ -30,8 +30,9 @@
   ;; Loop and sleep
   (while true
     ;; Select tweet
-    (doseq [msg tweets]
-;;    (def msg (first (rand-nth tweets)))
+    (doseq [tweet tweets]
+      ;;    (def msg (first (rand-nth tweets)))
+      (def msg (first tweet))
       (println "Posting:" msg " \n")
       (try
         (statuses-update :oauth-creds my-creds
