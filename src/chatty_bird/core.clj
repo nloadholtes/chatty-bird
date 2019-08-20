@@ -30,19 +30,21 @@
   ;; Loop and sleep
   (while true
     ;; Select tweet
-    (def msg (first (rand-nth tweets)))
-    (println "Posting:" msg " \n")
-    (try
-      (statuses-update :oauth-creds my-creds
-                       :params {:status msg})
-      ;; sleep for 6 hours plus some random number over 5 minutes
-      (def wait-time (+ base-wait-time (* (* (rand) 10) 300000)))
-      (println "Sleeping for " (/ (/ wait-time 1000) 60) " minutes")
-      (Thread/sleep wait-time)
+    (doseq [msg tweets]
+;;    (def msg (first (rand-nth tweets)))
+      (println "Posting:" msg " \n")
+      (try
+        (statuses-update :oauth-creds my-creds
+                         :params {:status msg})
+        ;; sleep for 6 hours plus some random number over 5 minutes
+        (def wait-time (+ base-wait-time (* (* (rand) 10) 300000)))
+        (println "Sleeping for " (/ (/ wait-time 1000) 60) " minutes")
+        (Thread/sleep wait-time)
 
-      (catch Exception excp
-        (println "   ****Exception seen:" (.getMessage excp))
-        (Thread/sleep 90000)
+        (catch Exception excp
+          (println "   ****Exception seen:" (.getMessage excp))
+          (Thread/sleep 90000)
+          )
         )
       )
    )
