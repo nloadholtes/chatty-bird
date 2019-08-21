@@ -47,7 +47,6 @@
 
 (defn post-tweet [tweet]
   (def msg (first tweet))
-  (println "Posting:" msg " \n")
   (try
     (statuses-update :oauth-creds my-creds
                      :params {:status msg})
