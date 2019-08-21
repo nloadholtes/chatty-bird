@@ -6,4 +6,4 @@ docker run -it --rm -e CONSUMER_KEY="$CONSUMER_KEY" \
        -e ACCESS_TOKEN_SECRET="$ACCESS_TOKEN_SECRET" \
        -e WAIT_TIME="$WAIT_TIME" \
 	-v $PWD:/data \
-       chatty $2
+       chatty $2 $3

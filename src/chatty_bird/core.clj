@@ -15,7 +15,7 @@
                                 (env :consumer-secret)
                                 (env :access-token)
                                 (env :access-token-secret)))
-(declare read-csv random-select)
+(declare read-csv random-select post-tweet)
 
 
 (defn -main
@@ -23,34 +23,45 @@
   [& args]
   (println "Tweet tweet!")
   (def base-wait-time (Integer/parseInt (env :wait-time)))
+  (def post-randomly (nth args 1 nil))
 
   (println "Pausing for" base-wait-time)
   (def tweets (read-csv (join ["/data/" (first args)])))
+  (println "post-randomly is: " post-randomly)
 
   ;; Loop and sleep
   (while true
     ;; Select tweet
-    (doseq [tweet tweets]
-      ;;    (def msg (first (rand-nth tweets)))
-      (def msg (first tweet))
-      (println "Posting:" msg " \n")
-      (try
-        (statuses-update :oauth-creds my-creds
-                         :params {:status msg})
-        ;; sleep for 6 hours plus some random number over 5 minutes
-        (def wait-time (+ base-wait-time (* (* (rand) 10) 300000)))
-        (println "Sleeping for " (/ (/ wait-time 1000) 60) " minutes")
-        (Thread/sleep wait-time)
-
-        (catch Exception excp
-          (println "   ****Exception seen:" (.getMessage excp))
-          (Thread/sleep 90000)
-          )
+    (if (= post-randomly nil)
+      (doseq [tweet tweets]
+        (println "Posting in order")
+        (post-tweet tweet)
         )
+      (
+        (println "Posting in random order!")
+        (post-tweet (rand-nth tweets))
+       )
       )
-   )
- )
+    )
+  )
 
+(defn post-tweet [tweet]
+  (def msg (first tweet))
+  (println "Posting:" msg " \n")
+  (try
+    (statuses-update :oauth-creds my-creds
+                     :params {:status msg})
+    ;; sleep for 6 hours plus some random number over 5 minutes
+    (def wait-time (+ base-wait-time (* (* (rand) 10) 300000)))
+    (println "Sleeping for " (/ (/ wait-time 1000) 60) " minutes")
+    (Thread/sleep wait-time)
+
+    (catch Exception excp
+      (println "   ****Exception seen:" (.getMessage excp))
+      (Thread/sleep 90000)
+      )
+    )
+  )
 
 (defn read-csv [filename]
   (println "Looking at " filename)
